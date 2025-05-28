@@ -12,6 +12,14 @@ def check_resources_sufficient(resource_dict, choice, menu_dict):
             is_sufficient = False
     return is_sufficient
 
+def process_coins():
+    quarters = int(input("How many quarters? "))
+    dimes = int(input("How many dimes? "))
+    nickels = int(input("How many nickels? "))
+    pennies = int(input("How many pennies? "))
+    user_money = quarters * 0.25 + dimes * 0.10 + nickels * 0.05 + pennies * 0.01
+    return user_money
+
 MENU = {
     "espresso": {
         "ingredients": {
@@ -59,4 +67,5 @@ while user_choice != "off":
         if is_sufficient == False:
             break
         else:
-            print("The resources are sufficient")
+            user_money = process_coins()
+            print(user_money)
