@@ -20,6 +20,16 @@ def process_coins():
     user_money = quarters * 0.25 + dimes * 0.10 + nickels * 0.05 + pennies * 0.01
     return user_money
 
+def check_transaction_successful(choice, money, menu_dict, resources_dict):
+    if menu_dict[choice]["cost"] > money:
+        print("Sorry that's not enough money.\nMoney refunded.")
+    else:
+        if money > menu_dict[choice]["cost"]:
+            change = money - menu_dict[choice]["cost"]
+            print(f"Please take your change: ${round(change, 2)}")
+        resources_dict["money"] += menu_dict[choice]["cost"]
+        return True
+
 MENU = {
     "espresso": {
         "ingredients": {
@@ -68,4 +78,4 @@ while user_choice != "off":
             break
         else:
             user_money = process_coins()
-            print(user_money)
+            is_transaction_successful = check_transaction_successful(user_choice, user_money, MENU, resources)
