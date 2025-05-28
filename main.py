@@ -4,6 +4,14 @@ def print_report(resource_dict):
     print(f"Coffee: {resource_dict["coffee"]}g")
     print(f"Money: ${resource_dict["money"]}")
 
+def check_resources_sufficient(resource_dict, choice, menu_dict):
+    is_sufficient = True
+    for ingredient in menu_dict[choice]["ingredients"]:
+        if resource_dict[ingredient] <= menu_dict[choice]["ingredients"][ingredient]:
+            print(f"Sorry there is not enough {ingredient}")
+            is_sufficient = False
+    return is_sufficient
+
 MENU = {
     "espresso": {
         "ingredients": {
@@ -44,3 +52,11 @@ while user_choice != "off":
 
     if user_choice == "report":
         print_report(resources)
+    
+    if user_choice not in ["report", "off"]:
+        is_sufficient = check_resources_sufficient(resources, user_choice, MENU)
+
+        if is_sufficient == False:
+            break
+        else:
+            print("The resources are sufficient")
