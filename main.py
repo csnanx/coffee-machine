@@ -1,13 +1,13 @@
 def print_report(resource_dict):
-    print(f"Water: {resource_dict["water"]}ml")
-    print(f"Milk: {resource_dict["milk"]}ml")
-    print(f"Coffee: {resource_dict["coffee"]}g")
-    print(f"Money: ${resource_dict["money"]}")
+    print(f"Water: {resource_dict['water']}ml")
+    print(f"Milk: {resource_dict['milk']}ml")
+    print(f"Coffee: {resource_dict['coffee']}g")
+    print(f"Money: ${resource_dict['money']}")
 
 def check_resources_sufficient(resource_dict, choice, menu_dict):
     is_sufficient = True
     for ingredient in menu_dict[choice]["ingredients"]:
-        if resource_dict[ingredient] <= menu_dict[choice]["ingredients"][ingredient]:
+        if resource_dict[ingredient] < menu_dict[choice]["ingredients"][ingredient]:
             print(f"Sorry there is not enough {ingredient}")
             is_sufficient = False
     return is_sufficient
@@ -75,11 +75,11 @@ while user_choice != "off":
     if user_choice == "report":
         print_report(resources)
     
-    if user_choice not in ["report", "off"]:
+    if user_choice in MENU:
         is_sufficient = check_resources_sufficient(resources, user_choice, MENU)
 
         if is_sufficient == False:
-            break
+            continue
         else:
             user_money = process_coins()
             is_transaction_successful = check_transaction_successful(user_choice, user_money, MENU, resources)
