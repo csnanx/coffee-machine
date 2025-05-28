@@ -30,6 +30,10 @@ def check_transaction_successful(choice, money, menu_dict, resources_dict):
         resources_dict["money"] += menu_dict[choice]["cost"]
         return True
 
+def deduct_ingredients(choice, resources_dict, menu_dict):
+    for ingredient in menu_dict[choice]["ingredients"]:
+        resources_dict[ingredient] -= menu_dict[choice]["ingredients"][ingredient]
+
 MENU = {
     "espresso": {
         "ingredients": {
@@ -79,3 +83,8 @@ while user_choice != "off":
         else:
             user_money = process_coins()
             is_transaction_successful = check_transaction_successful(user_choice, user_money, MENU, resources)
+
+            if is_transaction_successful:
+                deduct_ingredients(user_choice, resources, MENU)
+
+                print(f"Here is your {user_choice}. Enjoy!")
